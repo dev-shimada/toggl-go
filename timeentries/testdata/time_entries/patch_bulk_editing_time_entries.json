@@ -1,0 +1,11 @@
+{
+  "failure": [
+    {
+      "id": 0,
+      "message": "string"
+    }
+  ],
+  "success": [
+    0
+  ]
+}

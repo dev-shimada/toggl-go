@@ -1,0 +1,42 @@
+{
+  "at": "string",
+  "billable": true,
+  "client_name": "string",
+  "description": "string",
+  "duration": 0,
+  "duronly": true,
+  "id": 0,
+  "permissions": [
+    "string"
+  ],
+  "pid": 0,
+  "project_active": true,
+  "project_billable": true,
+  "project_color": "string",
+  "project_id": 0,
+  "project_name": "string",
+  "shared_with": [
+    {
+      "accepted": true,
+      "user_id": 0,
+      "user_name": "string"
+    }
+  ],
+  "start": "string",
+  "stop": "string",
+  "tag_ids": [
+    0
+  ],
+  "tags": [
+    "string"
+  ],
+  "task_id": 0,
+  "task_name": "string",
+  "tid": 0,
+  "uid": 0,
+  "user_avatar_url": "string",
+  "user_id": 0,
+  "user_name": "string",
+  "wid": 0,
+  "workspace_id": 0
+}
