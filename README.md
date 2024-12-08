@@ -1,3 +1,8 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/dev-shimada/toggl-go)](https://goreportcard.com/report/github.com/dev-shimada/toggl-go)
+[![Coverage Status](https://coveralls.io/repos/github/dev-shimada/toggl-go/badge.svg?branch=main)](https://coveralls.io/github/dev-shimada/toggl-go?branch=main)
+[![CI](https://github.com/dev-shimada/toggl-go/actions/workflows/CI.yaml/badge.svg)](https://github.com/dev-shimada/toggl-go/actions/workflows/CI.yaml)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/dev-shimada/toggl-go/blob/master/LICENSE)
+
 # Toggl Time Entries Go Client
 
 This project provides a Go client for interacting with the [Toggl Track API](https://developers.track.toggl.com/docs/). It allows developers to integrate Toggl time tracking functionalities into their Go applications.
