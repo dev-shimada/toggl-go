@@ -22,5 +22,50 @@ This project provides a Go client for interacting with the [Toggl Track API](htt
 
 Use `go get` to install the package:
 ```plaintext
-github.com/dev-shimada/toggl-go
+go get github.com/dev-shimada/toggl-go
+```
+
+## Usage
+
+Here is an example of how to use the package:
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"time"
+
+	"github.com/dev-shimada/toggl-go/timeentries"
+	"github.com/dev-shimada/toggl-go/toggl"
+)
+
+func main() {
+	// Get your API token from https://toggl.com/app/profile
+	token := os.Getenv("TOKEN")
+	client := toggl.NewClient(token)
+
+	// Get time entries for the last 7 days
+	now := time.Now()
+	start := now.Add(-24 * 7 * time.Hour).Format(time.RFC3339)
+	end := now.Format(time.RFC3339)
+	result, err := client.TimeEntriesClient.GetTimeEntries(
+		timeentries.GetTimeEntriesInput{
+			Query: timeentries.GetTimeEntriesQuery{
+				StartDate: &start,
+				EndDate:   &end,
+			},
+		},
+	)
+	if err != nil {
+		fmt.Println(err)
+	}
+	for _, v := range result {
+		fmt.Printf(
+			"ID: %d, Description: %s, Start: %s, Stop: %s, Duration: %d\n",
+			*v.Id, *v.Description, *v.Start, *v.Stop, *v.Duration,
+		)
+	}
+}
 ```
