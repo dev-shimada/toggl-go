@@ -1,10 +1,8 @@
 package projects
 
-import "fmt"
-
-const (
-	getWorkspaceProjectsUsers = "/api/v9/workspaces/%d/project_users"
-)
+// const (
+// 	getWorkspaceProjectsUsers = "/api/v9/workspaces/%d/project_users"
+// )
 
 type GetWorkspaceProjectsUsersQuery struct {
 	ProjectIds       string
@@ -12,7 +10,7 @@ type GetWorkspaceProjectsUsersQuery struct {
 	WithGroupMembers bool
 }
 type GetWorkspaceProjectsUsersInput struct {
-	WorkspaceID *int
+	WorkspaceID int
 	Query       GetWorkspaceProjectsUsersQuery
 }
 type GetWorkspaceProjectsUsersOutput struct {
@@ -20,16 +18,16 @@ type GetWorkspaceProjectsUsersOutput struct {
 	Gid                  int    `json:"gid"`                     //	Group ID, legacy field
 	GroupId              int    `json:"group_id"`                //	Group ID
 	Id                   int    `json:"id"`                      //	Project User ID
-	LaborCost            *int   `json:"labor_cost"`              //	null
+	LaborCost            int    `json:"labor_cost"`              //	null
 	LaborCostLastUpdated string `json:"labor_cost_last_updated"` //	Date for labor cost last updated
 	Manager              bool   `json:"manager"`                 //	Whether the user is manager of the project
 	ProjectId            int    `json:"prpoject_id"`             //	Project ID
-	Rate                 *int   `json:"rate"`                    //	null
+	Rate                 int    `json:"rate"`                    //	null
 	RateLastUpdated      string `json:"rate_last_updated"`       //	Date for rate last updated
 	UserId               int    `json:"user_id"`                 //	User ID
 	WorkspaceId          int    `json:"workspace_id"`            //	Workspace ID
 }
 
-func (c Client) GetWorkspaceProjectsUsers(workspaceID int) string {
-	return fmt.Sprintf(getWorkspaceProjectsUsers, workspaceID)
+func (c Client) GetWorkspaceProjectsUsers(input GetWorkspaceProjectsUsersInput) (GetWorkspaceProjectsUsersOutput, error) {
+	return GetWorkspaceProjectsUsersOutput{}, nil
 }
