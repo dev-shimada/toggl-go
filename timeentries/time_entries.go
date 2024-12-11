@@ -45,34 +45,34 @@ type SharedWith struct {
 
 // GetTimeEntriesOutput represents a time entry fetched from Toggl.
 type GetTimeEntriesOutput struct {
-	At              *string      `json:"at"`
-	Billable        *bool        `json:"billable"`
-	ClientName      *string      `json:"client_name"`
-	Description     *string      `json:"description"`
-	Duration        *int         `json:"duration"`
-	Duronly         *bool        `json:"duronly"`
-	Id              *int         `json:"id"`
+	At              string       `json:"at"`
+	Billable        bool         `json:"billable"`
+	ClientName      string       `json:"client_name"`
+	Description     string       `json:"description"`
+	Duration        int          `json:"duration"`
+	Duronly         bool         `json:"duronly"`
+	Id              int          `json:"id"`
 	Permissions     []string     `json:"permissions"`
-	Pid             *int         `json:"pid"`
-	ProjectActive   *bool        `json:"project_active"`
-	ProjectBillable *bool        `json:"project_billable"`
-	ProjectColor    *string      `json:"project_color"`
-	ProjectId       *int         `json:"project_id"`
-	ProjectName     *string      `json:"project_name"`
+	Pid             int          `json:"pid"`
+	ProjectActive   bool         `json:"project_active"`
+	ProjectBillable bool         `json:"project_billable"`
+	ProjectColor    string       `json:"project_color"`
+	ProjectId       int          `json:"project_id"`
+	ProjectName     string       `json:"project_name"`
 	SharedWith      []SharedWith `json:"shared_with"`
-	Start           *string      `json:"start"`
-	Stop            *string      `json:"stop"`
+	Start           string       `json:"start"`
+	Stop            string       `json:"stop"`
 	TagIds          []int        `json:"tag_ids"`
 	Tags            []string     `json:"tags"`
-	TaskId          *int         `json:"task_id"`
-	TaskName        *string      `json:"task_name"`
-	Tid             *int         `json:"tid"`
-	Uid             *int         `json:"uid"`
-	UserAvatarUrl   *string      `json:"user_avatar_url"`
-	UserId          *int         `json:"user_id"`
-	UserName        *string      `json:"user_name"`
-	Wid             *int         `json:"wid"`
-	WorkspaceId     *int         `json:"workspace_id"`
+	TaskId          int          `json:"task_id"`
+	TaskName        string       `json:"task_name"`
+	Tid             int          `json:"tid"`
+	Uid             int          `json:"uid"`
+	UserAvatarUrl   string       `json:"user_avatar_url"`
+	UserId          int          `json:"user_id"`
+	UserName        string       `json:"user_name"`
+	Wid             int          `json:"wid"`
+	WorkspaceId     int          `json:"workspace_id"`
 }
 
 // GetTimeEntries retrieves time entries based on the provided input.
@@ -166,7 +166,7 @@ type GetATimeEntryByIdQuery struct {
 
 // GetATimeEntryByIdInput contains the input data for GetATimeEntryById.
 type GetATimeEntryByIdInput struct {
-	TimeEntryId *int // required
+	TimeEntryId int // required
 	Query       GetATimeEntryByIdQuery
 }
 
@@ -175,7 +175,7 @@ type GetATimeEntryByIdOutput = GetTimeEntriesOutput
 
 // GetATimeEntryById retrieves a time entry by its ID.
 func (c Client) GetATimeEntryById(input GetATimeEntryByIdInput) (GetATimeEntryByIdOutput, error) {
-	if input.TimeEntryId == nil {
+	if input.TimeEntryId == 0 {
 		slog.Error("TimeEntryId is required")
 		return GetATimeEntryByIdOutput{}, ErrorRequiredParameter
 	}
@@ -183,7 +183,7 @@ func (c Client) GetATimeEntryById(input GetATimeEntryByIdInput) (GetATimeEntryBy
 	q.Add("meta", fmt.Sprintf("%v", input.Query.Meta))
 	q.Add("include_sharing", fmt.Sprintf("%v", input.Query.IncludeSharing))
 	toggl := c.Get(url.URL{RawQuery: q.Encode()})
-	toggl.URL.Path = fmt.Sprintf(getATimeEntryByIdPath, *input.TimeEntryId)
+	toggl.URL.Path = fmt.Sprintf(getATimeEntryByIdPath, input.TimeEntryId)
 
 	resp, err := c.HttpClient.Do(&toggl)
 	if err != nil {
@@ -250,7 +250,7 @@ type PostTimeEntriesBody struct {
 
 // PostTimeEntriesInput contains the input data for PostTimeEntries.
 type PostTimeEntriesInput struct {
-	WorkspaceId *int // required
+	WorkspaceId int // required
 	Query       PostTimeEntriesQuery
 	Body        PostTimeEntriesBody
 }
@@ -260,7 +260,7 @@ type PostTimeEntriesOutput = GetTimeEntriesOutput
 
 // PostTimeEntries creates a new time entry in Toggl.
 func (c Client) PostTimeEntries(input PostTimeEntriesInput) (PostTimeEntriesOutput, error) {
-	if input.WorkspaceId == nil {
+	if input.WorkspaceId == 0 {
 		slog.Error("WorkspaceId is required")
 		return PostTimeEntriesOutput{}, ErrorRequiredParameter
 	}
@@ -271,7 +271,7 @@ func (c Client) PostTimeEntries(input PostTimeEntriesInput) (PostTimeEntriesOutp
 		return PostTimeEntriesOutput{}, err
 	}
 	toggl := c.Post(url.URL{RawQuery: q.Encode()}, j)
-	toggl.URL.Path = fmt.Sprintf(postTimeEntries, *input.WorkspaceId)
+	toggl.URL.Path = fmt.Sprintf(postTimeEntries, input.WorkspaceId)
 
 	resp, err := c.HttpClient.Do(&toggl)
 	if err != nil {
@@ -310,12 +310,12 @@ type PatchBulkEditingTimeEntriesInput struct {
 	/*
 		Numeric ID of the workspace
 	*/
-	WorkspaceId *int // required
+	WorkspaceId int // required
 	/*
 		Numeric IDs of time_entries, separated by comma.
 		E.g.: 204301830,202700150,202687559. The limit is 100 IDs per request.
 	*/
-	TimeEntryIds *string // required
+	TimeEntryIds string // required
 	Query        PatchBulkEditingTimeEntriesQuery
 	/*
 		Body
@@ -343,18 +343,18 @@ type PatchBulkEditingTimeEntriesOutput struct {
 
 // PatchBulkEditingTimeEntries performs bulk edit operations on time entries.
 func (c Client) PatchBulkEditingTimeEntries(input PatchBulkEditingTimeEntriesInput) (PatchBulkEditingTimeEntriesOutput, error) {
-	if input.WorkspaceId == nil {
+	if input.WorkspaceId == 0 {
 		slog.Error("WorkspaceId is required")
 		return PatchBulkEditingTimeEntriesOutput{}, ErrorRequiredParameter
 	}
-	if input.TimeEntryIds == nil {
+	if input.TimeEntryIds == "" {
 		slog.Error("TimeEntryIds is required")
 		return PatchBulkEditingTimeEntriesOutput{}, ErrorRequiredParameter
 	}
 	q := url.Values{}
 	q.Add("meta", fmt.Sprintf("%v", input.Query.Meta))
 	toggl := c.Patch(url.URL{RawQuery: q.Encode()}, input.Body)
-	toggl.URL.Path = fmt.Sprintf(patchBulkEditingTimeEntries, *input.WorkspaceId, *input.TimeEntryIds)
+	toggl.URL.Path = fmt.Sprintf(patchBulkEditingTimeEntries, input.WorkspaceId, input.TimeEntryIds)
 
 	resp, err := c.HttpClient.Do(&toggl)
 	if err != nil {
@@ -394,8 +394,8 @@ type PutTimeEntriesBody = PostTimeEntriesBody
 
 // PutTimeEntriesInput contains the input data for updating a time entry.
 type PutTimeEntriesInput struct {
-	WorkspaceId *int // required
-	TimeEntryId *int // required
+	WorkspaceId int // required
+	TimeEntryId int // required
 	Query       PutTimeEntriesQuery
 	Body        PutTimeEntriesBody
 }
@@ -405,11 +405,11 @@ type PutTimeEntriesOutput = GetTimeEntriesOutput
 
 // PutTimeEntries updates an existing time entry.
 func (c Client) PutTimeEntries(input PutTimeEntriesInput) (PutTimeEntriesOutput, error) {
-	if input.WorkspaceId == nil {
+	if input.WorkspaceId == 0 {
 		slog.Error("WorkspaceId is required")
 		return PutTimeEntriesOutput{}, ErrorRequiredParameter
 	}
-	if input.TimeEntryId == nil {
+	if input.TimeEntryId == 0 {
 		slog.Error("TimeEntryId is required")
 		return PutTimeEntriesOutput{}, ErrorRequiredParameter
 	}
@@ -420,7 +420,7 @@ func (c Client) PutTimeEntries(input PutTimeEntriesInput) (PutTimeEntriesOutput,
 		return PutTimeEntriesOutput{}, err
 	}
 	toggl := c.Put(url.URL{RawQuery: q.Encode()}, j)
-	toggl.URL.Path = fmt.Sprintf(putTimeEntries, *input.WorkspaceId, *input.TimeEntryId)
+	toggl.URL.Path = fmt.Sprintf(putTimeEntries, input.WorkspaceId, input.TimeEntryId)
 
 	resp, err := c.HttpClient.Do(&toggl)
 	if err != nil {
@@ -451,22 +451,22 @@ func (c Client) PutTimeEntries(input PutTimeEntriesInput) (PutTimeEntriesOutput,
 
 // DeleteTimeEntriesInput contains the input data for deleting a time entry.
 type DeleteTimeEntriesInput struct {
-	WorkspaceId *int // required
-	TimeEntryId *int // required
+	WorkspaceId int // required
+	TimeEntryId int // required
 }
 
 // DeleteTimeEntries deletes a time entry from Toggl.
 func (c Client) DeleteTimeEntries(input DeleteTimeEntriesInput) error {
-	if input.WorkspaceId == nil {
+	if input.WorkspaceId == 0 {
 		slog.Error("WorkspaceId is required")
 		return ErrorRequiredParameter
 	}
-	if input.TimeEntryId == nil {
+	if input.TimeEntryId == 0 {
 		slog.Error("TimeEntryId is required")
 		return ErrorRequiredParameter
 	}
 	toggl := c.Delete(url.URL{})
-	toggl.URL.Path = fmt.Sprintf(deleteTimeEntries, *input.WorkspaceId, *input.TimeEntryId)
+	toggl.URL.Path = fmt.Sprintf(deleteTimeEntries, input.WorkspaceId, input.TimeEntryId)
 	resp, err := c.HttpClient.Do(&toggl)
 	if err != nil {
 		return err
@@ -491,8 +491,8 @@ func (c Client) DeleteTimeEntries(input DeleteTimeEntriesInput) error {
 
 // PatchStopTimeEntryInput contains the input data for stopping a running time entry.
 type PatchStopTimeEntryInput struct {
-	WorkspaceId *int // required
-	TimeEntryId *int // required
+	WorkspaceId int // required
+	TimeEntryId int // required
 }
 
 // PatchStopTimeEntryOutput represents the response after stopping a time entry.
@@ -500,16 +500,16 @@ type PatchStopTimeEntryOutput = GetTimeEntriesOutput
 
 // PatchStopTimeEntry stops a running time entry.
 func (c Client) PatchStopTimeEntry(input PatchStopTimeEntryInput) (PatchStopTimeEntryOutput, error) {
-	if input.WorkspaceId == nil {
+	if input.WorkspaceId == 0 {
 		slog.Error("WorkspaceId is required")
 		return PatchStopTimeEntryOutput{}, ErrorRequiredParameter
 	}
-	if input.TimeEntryId == nil {
+	if input.TimeEntryId == 0 {
 		slog.Error("TimeEntryId is required")
 		return PatchStopTimeEntryOutput{}, ErrorRequiredParameter
 	}
 	toggl := c.Patch(url.URL{}, nil)
-	toggl.URL.Path = fmt.Sprintf(patchStopTimeEntry, *input.WorkspaceId, *input.TimeEntryId)
+	toggl.URL.Path = fmt.Sprintf(patchStopTimeEntry, input.WorkspaceId, input.TimeEntryId)
 	resp, err := c.HttpClient.Do(&toggl)
 	if err != nil {
 		return PatchStopTimeEntryOutput{}, err
