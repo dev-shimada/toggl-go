@@ -160,7 +160,7 @@ func TestGetATimeEntryById(t *testing.T) {
 		{
 			name:     "success",
 			client:   successClient,
-			arg:      timeentries.GetATimeEntryByIdInput{TimeEntryId: &timeEntryId},
+			arg:      timeentries.GetATimeEntryByIdInput{TimeEntryId: timeEntryId},
 			wantJson: testFile,
 			wantErr:  nil,
 		},
@@ -174,7 +174,7 @@ func TestGetATimeEntryById(t *testing.T) {
 		{
 			name:     "http error",
 			client:   errorClient,
-			arg:      timeentries.GetATimeEntryByIdInput{TimeEntryId: &timeEntryId},
+			arg:      timeentries.GetATimeEntryByIdInput{TimeEntryId: timeEntryId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorStatusNotOK,
 		},
@@ -230,7 +230,7 @@ func TestPostTimeEntries(t *testing.T) {
 		{
 			name:     "success",
 			client:   successClient,
-			arg:      timeentries.PostTimeEntriesInput{WorkspaceId: &workspaceId, Body: timeentries.PostTimeEntriesBody{}},
+			arg:      timeentries.PostTimeEntriesInput{WorkspaceId: workspaceId, Body: timeentries.PostTimeEntriesBody{}},
 			wantJson: testFile,
 			wantErr:  nil,
 		},
@@ -244,7 +244,7 @@ func TestPostTimeEntries(t *testing.T) {
 		{
 			name:     "http error",
 			client:   errorClient,
-			arg:      timeentries.PostTimeEntriesInput{WorkspaceId: &workspaceId},
+			arg:      timeentries.PostTimeEntriesInput{WorkspaceId: workspaceId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorStatusNotOK,
 		},
@@ -301,28 +301,28 @@ func TestPatchBulkEditingTimeEntries(t *testing.T) {
 		{
 			name:     "success",
 			client:   successClient,
-			arg:      timeentries.PatchBulkEditingTimeEntriesInput{WorkspaceId: &workspaceId, TimeEntryIds: &timeEntryIds},
+			arg:      timeentries.PatchBulkEditingTimeEntriesInput{WorkspaceId: workspaceId, TimeEntryIds: timeEntryIds},
 			wantJson: testFile,
 			wantErr:  nil,
 		},
 		{
 			name:     "WorkspaceId parameter error",
 			client:   successClient,
-			arg:      timeentries.PatchBulkEditingTimeEntriesInput{TimeEntryIds: &timeEntryIds},
+			arg:      timeentries.PatchBulkEditingTimeEntriesInput{TimeEntryIds: timeEntryIds},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:     "TimeEntryIds parameter error",
 			client:   successClient,
-			arg:      timeentries.PatchBulkEditingTimeEntriesInput{WorkspaceId: &workspaceId},
+			arg:      timeentries.PatchBulkEditingTimeEntriesInput{WorkspaceId: workspaceId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:     "http error",
 			client:   errorClient,
-			arg:      timeentries.PatchBulkEditingTimeEntriesInput{WorkspaceId: &workspaceId, TimeEntryIds: &timeEntryIds},
+			arg:      timeentries.PatchBulkEditingTimeEntriesInput{WorkspaceId: workspaceId, TimeEntryIds: timeEntryIds},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorStatusNotOK,
 		},
@@ -379,28 +379,28 @@ func TestPutTimeEntries(t *testing.T) {
 		{
 			name:     "success",
 			client:   successClient,
-			arg:      timeentries.PutTimeEntriesInput{WorkspaceId: &workspaceId, TimeEntryId: &timeEntryId},
+			arg:      timeentries.PutTimeEntriesInput{WorkspaceId: workspaceId, TimeEntryId: timeEntryId},
 			wantJson: testFile,
 			wantErr:  nil,
 		},
 		{
 			name:     "WorkspaceId parameter error",
 			client:   successClient,
-			arg:      timeentries.PutTimeEntriesInput{TimeEntryId: &timeEntryId},
+			arg:      timeentries.PutTimeEntriesInput{TimeEntryId: timeEntryId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:     "TimeEntryIds parameter error",
 			client:   successClient,
-			arg:      timeentries.PutTimeEntriesInput{WorkspaceId: &workspaceId},
+			arg:      timeentries.PutTimeEntriesInput{WorkspaceId: workspaceId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:     "http error",
 			client:   errorClient,
-			arg:      timeentries.PutTimeEntriesInput{WorkspaceId: &workspaceId, TimeEntryId: &timeEntryId},
+			arg:      timeentries.PutTimeEntriesInput{WorkspaceId: workspaceId, TimeEntryId: timeEntryId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorStatusNotOK,
 		},
@@ -445,25 +445,25 @@ func TestDeleteTimeEntries(t *testing.T) {
 		{
 			name:    "success",
 			client:  successClient,
-			arg:     timeentries.DeleteTimeEntriesInput{WorkspaceId: &workspaceId, TimeEntryId: &timeEntryId},
+			arg:     timeentries.DeleteTimeEntriesInput{WorkspaceId: workspaceId, TimeEntryId: timeEntryId},
 			wantErr: nil,
 		},
 		{
 			name:    "WorkspaceId parameter error",
 			client:  successClient,
-			arg:     timeentries.DeleteTimeEntriesInput{TimeEntryId: &timeEntryId},
+			arg:     timeentries.DeleteTimeEntriesInput{TimeEntryId: timeEntryId},
 			wantErr: timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:    "TimeEntryIds parameter error",
 			client:  successClient,
-			arg:     timeentries.DeleteTimeEntriesInput{WorkspaceId: &workspaceId},
+			arg:     timeentries.DeleteTimeEntriesInput{WorkspaceId: workspaceId},
 			wantErr: timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:    "http error",
 			client:  errorClient,
-			arg:     timeentries.DeleteTimeEntriesInput{WorkspaceId: &workspaceId, TimeEntryId: &timeEntryId},
+			arg:     timeentries.DeleteTimeEntriesInput{WorkspaceId: workspaceId, TimeEntryId: timeEntryId},
 			wantErr: timeentries.ErrorStatusNotOK,
 		},
 	}
@@ -510,28 +510,28 @@ func TestPatchStopTimeEntry(t *testing.T) {
 		{
 			name:     "success",
 			client:   successClient,
-			arg:      timeentries.PatchStopTimeEntryInput{WorkspaceId: &workspaceId, TimeEntryId: &timeEntryId},
+			arg:      timeentries.PatchStopTimeEntryInput{WorkspaceId: workspaceId, TimeEntryId: timeEntryId},
 			wantJson: testFile,
 			wantErr:  nil,
 		},
 		{
 			name:     "WorkspaceId parameter error",
 			client:   successClient,
-			arg:      timeentries.PatchStopTimeEntryInput{TimeEntryId: &timeEntryId},
+			arg:      timeentries.PatchStopTimeEntryInput{TimeEntryId: timeEntryId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:     "TimeEntryIds parameter error",
 			client:   successClient,
-			arg:      timeentries.PatchStopTimeEntryInput{WorkspaceId: &workspaceId},
+			arg:      timeentries.PatchStopTimeEntryInput{WorkspaceId: workspaceId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorRequiredParameter,
 		},
 		{
 			name:     "http error",
 			client:   errorClient,
-			arg:      timeentries.PatchStopTimeEntryInput{WorkspaceId: &workspaceId, TimeEntryId: &timeEntryId},
+			arg:      timeentries.PatchStopTimeEntryInput{WorkspaceId: workspaceId, TimeEntryId: timeEntryId},
 			wantJson: errorWant,
 			wantErr:  timeentries.ErrorStatusNotOK,
 		},
@@ -585,7 +585,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		if err != nil {
 			t.Log(err)
 		} else {
-			if _, err := client.PatchStopTimeEntry(timeentries.PatchStopTimeEntryInput{WorkspaceId: &workspace, TimeEntryId: ct.Id}); err != nil {
+			if _, err := client.PatchStopTimeEntry(timeentries.PatchStopTimeEntryInput{WorkspaceId: workspace, TimeEntryId: ct.Id}); err != nil {
 				t.Log(err)
 			}
 		}
@@ -597,14 +597,14 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 
 		wg := sync.WaitGroup{}
 		for _, te := range timeEntry {
-			if *te.WorkspaceId == workspace {
+			if te.WorkspaceId == workspace {
 				wg.Add(1)
 				go func(id int) {
 					defer wg.Done()
-					if err := client.DeleteTimeEntries(timeentries.DeleteTimeEntriesInput{WorkspaceId: &workspace, TimeEntryId: &id}); err != nil {
+					if err := client.DeleteTimeEntries(timeentries.DeleteTimeEntriesInput{WorkspaceId: workspace, TimeEntryId: id}); err != nil {
 						t.Log(err)
 					}
-				}(*te.Id)
+				}(te.Id)
 			}
 		}
 		wg.Wait()
@@ -627,7 +627,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		start := now.Add(-time.Hour).Format("2006-01-02T15:04:05Z")
 		stop := now.Format("2006-01-02T15:04:05Z")
 		_, err := client.PostTimeEntries(timeentries.PostTimeEntriesInput{
-			WorkspaceId: &workspace,
+			WorkspaceId: workspace,
 			Body: timeentries.PostTimeEntriesBody{
 				Description: description,
 				Start:       &start,
@@ -642,8 +642,8 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if description != *got[0].Description {
-			t.Errorf("Expected %s, got %s", description, *got[0].Description)
+		if description != got[0].Description {
+			t.Errorf("Expected %s, got %s", description, got[0].Description)
 		}
 	})
 
@@ -655,7 +655,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		start := now.Add(-time.Hour).Format("2006-01-02T15:04:05Z")
 		duration := -1
 		_, err := client.PostTimeEntries(timeentries.PostTimeEntriesInput{
-			WorkspaceId: &workspace,
+			WorkspaceId: workspace,
 			Body: timeentries.PostTimeEntriesBody{
 				Description: description,
 				Start:       &start,
@@ -670,8 +670,8 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if description != *got.Description {
-			t.Errorf("Expected %s, got %s", description, *got.Description)
+		if description != got.Description {
+			t.Errorf("Expected %s, got %s", description, got.Description)
 		}
 	})
 
@@ -683,7 +683,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		start := now.Add(-time.Hour).Format("2006-01-02T15:04:05Z")
 		stop := now.Format("2006-01-02T15:04:05Z")
 		postTimeEntries, err := client.PostTimeEntries(timeentries.PostTimeEntriesInput{
-			WorkspaceId: &workspace,
+			WorkspaceId: workspace,
 			Body: timeentries.PostTimeEntriesBody{
 				Description: description,
 				Start:       &start,
@@ -698,8 +698,8 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if description != *got.Description {
-			t.Errorf("Expected %s, got %s", description, *got.Description)
+		if description != got.Description {
+			t.Errorf("Expected %s, got %s", description, got.Description)
 		}
 	})
 
@@ -711,7 +711,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		start := now.Add(-time.Hour).Format("2006-01-02T15:04:05Z")
 		stop := now.Format("2006-01-02T15:04:05Z")
 		postTimeEntries, err := client.PostTimeEntries(timeentries.PostTimeEntriesInput{
-			WorkspaceId: &workspace,
+			WorkspaceId: workspace,
 			Body: timeentries.PostTimeEntriesBody{
 				Description: description,
 				Start:       &start,
@@ -724,7 +724,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		}
 		want := "test updated PutTimeEntriesBody"
 		got, err := client.PutTimeEntries(timeentries.PutTimeEntriesInput{
-			WorkspaceId: &workspace,
+			WorkspaceId: workspace,
 			// TimeEntryId: GetTimeEntries[0].Id,
 			TimeEntryId: postTimeEntries.Id,
 			Body:        timeentries.PutTimeEntriesBody{Description: want, WorkspaceId: workspace},
@@ -732,8 +732,8 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if want != *got.Description {
-			t.Errorf("Expected %s, got %s", want, *got.Description)
+		if want != got.Description {
+			t.Errorf("Expected %s, got %s", want, got.Description)
 		}
 	})
 
@@ -745,7 +745,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		start1 := now.Add(-time.Hour).Format("2006-01-02T15:04:05Z")
 		stop1 := now.Format("2006-01-02T15:04:05Z")
 		postTimeEntries1, err := client.PostTimeEntries(timeentries.PostTimeEntriesInput{
-			WorkspaceId: &workspace,
+			WorkspaceId: workspace,
 			Body: timeentries.PostTimeEntriesBody{
 				Description: description,
 				Start:       &start1,
@@ -759,7 +759,7 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		start2 := now.Add(-time.Hour * 2).Format("2006-01-02T15:04:05Z")
 		stop2 := now.Add(-time.Hour * 1).Format("2006-01-02T15:04:05Z")
 		postTimeEntries2, err := client.PostTimeEntries(timeentries.PostTimeEntriesInput{
-			WorkspaceId: &workspace,
+			WorkspaceId: workspace,
 			Body: timeentries.PostTimeEntriesBody{
 				Description: description,
 				Start:       &start2,
@@ -770,24 +770,24 @@ func TestGetTimeEntriesRemoteAccess(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		timeEntryIds := fmt.Sprintf("%d,%d", *postTimeEntries1.Id, *postTimeEntries2.Id)
+		timeEntryIds := fmt.Sprintf("%d,%d", postTimeEntries1.Id, postTimeEntries2.Id)
 		body := `[{"op": "replace", "path": "/description", "value":"test updated PatchBulkEditingTimeEntries"}]`
 		patchBulkEditingTimeEntries, err := client.PatchBulkEditingTimeEntries(
 			timeentries.PatchBulkEditingTimeEntriesInput{
-				WorkspaceId:  &workspace,
-				TimeEntryIds: &timeEntryIds,
+				WorkspaceId:  workspace,
+				TimeEntryIds: timeEntryIds,
 				Body:         []byte(body),
 			},
 		)
 		if err != nil {
 			t.Fatal(err)
 		}
-		got, err := client.GetATimeEntryById(timeentries.GetATimeEntryByIdInput{TimeEntryId: &patchBulkEditingTimeEntries.Success[0]})
+		got, err := client.GetATimeEntryById(timeentries.GetATimeEntryByIdInput{TimeEntryId: patchBulkEditingTimeEntries.Success[0]})
 		if err != nil {
 			t.Fatal(err)
 		}
-		if *got.Description != "test updated PatchBulkEditingTimeEntries" {
-			t.Errorf("Expected %s, got %s", "test updated PatchBulkEditingTimeEntries", *got.Description)
+		if got.Description != "test updated PatchBulkEditingTimeEntries" {
+			t.Errorf("Expected %s, got %s", "test updated PatchBulkEditingTimeEntries", got.Description)
 		}
 	})
 }
