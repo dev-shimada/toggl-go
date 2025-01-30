@@ -39,6 +39,10 @@ func TestGetWorkspaceProjectsUsers(t *testing.T) {
 	okBody := io.NopCloser(bytes.NewBuffer(testFile))
 	successClient := fakeClient(&http.Response{StatusCode: http.StatusOK, Body: okBody})
 	errorClient := fakeClient(&http.Response{StatusCode: http.StatusBadRequest, Body: http.NoBody})
+	errorWant, err := json.MarshalIndent(nil, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	test := []struct {
 		name     string
@@ -66,7 +70,7 @@ func TestGetWorkspaceProjectsUsers(t *testing.T) {
 				Query: projects.GetWorkspaceProjectsUsersQuery{
 					ProjectIds: "1", UserId: "1", WithGroupMembers: true},
 			},
-			wantJson: testFile,
+			wantJson: errorWant,
 			wantErr:  projects.ErrorStatusNotOK,
 		},
 	}
