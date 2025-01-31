@@ -80,3 +80,22 @@ func (c Client) GetWorkspaceProjectsUsers(input GetWorkspaceProjectsUsersInput) 
 
 	return out, nil
 }
+
+type PostAddAnUserIntoWorkspaceProjectsUsersBody struct {
+	LaborCost           int    `json:"labor_cost"`             //	Labor cost for this project user
+	LaborCostChangeMode string `json:"labor_cost_change_mode"` //	Labor cost change mode for this project user. Can be "start-today", "override-current", "override-all"
+	Manager             bool   `json:"manager"`                //	Whether the user will be manager of the project
+	ProjectId           int    `json:"project_id"`             //	Project ID
+	Rate                int    `json:"rate"`                   //	Rate for this project user
+	RateChangeMode      string `json:"rate_change_mode"`       //	Rate change mode for this project user. Can be "start-today", "override-current", "override-all"
+	UserId              int    `json:"user_id"`                //	User ID
+}
+type PostAddAnUserIntoWorkspaceProjectsUsersInput struct {
+	WorkspaceID int
+	Body        PostAddAnUserIntoWorkspaceProjectsUsersBody
+}
+type PostAddAnUserIntoWorkspaceProjectsUsersOutput = GetWorkspaceProjectsUsersOutput
+
+func (c Client) PostAddAnUserIntoWorkspaceProjectsUsers(input PostAddAnUserIntoWorkspaceProjectsUsersInput) (PostAddAnUserIntoWorkspaceProjectsUsersOutput, error) {
+	return PostAddAnUserIntoWorkspaceProjectsUsersOutput{}, nil
+}

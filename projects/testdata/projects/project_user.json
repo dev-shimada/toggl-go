@@ -1,0 +1,14 @@
+{
+  "at": "string",
+  "gid": 0,
+  "group_id": 0,
+  "id": 0,
+  "labor_cost": 0,
+  "labor_cost_last_updated": "string",
+  "manager": true,
+  "project_id": 0,
+  "rate": 0,
+  "rate_last_updated": "string",
+  "user_id": 0,
+  "workspace_id": 0
+}

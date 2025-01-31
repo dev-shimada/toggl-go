@@ -90,5 +90,66 @@ func TestGetWorkspaceProjectsUsers(t *testing.T) {
 			}
 		})
 	}
-
 }
+
+// func TestPostAddAnUserIntoWorkspaceProjectsUsers(t *testing.T) {
+// 	testFile, err := os.ReadFile("testdata/projects/project_users.json")
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+// 	testFile = bytes.TrimSpace(testFile)
+// 	okBody := io.NopCloser(bytes.NewBuffer(testFile))
+// 	successClient := fakeClient(&http.Response{StatusCode: http.StatusOK, Body: okBody})
+// 	errorClient := fakeClient(&http.Response{StatusCode: http.StatusBadRequest, Body: http.NoBody})
+// 	errorWant, err := json.MarshalIndent(nil, "", "  ")
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+
+// 	test := []struct {
+// 		name     string
+// 		client   projects.Client
+// 		arg      projects.GetWorkspaceProjectsUsersInput
+// 		wantJson []byte
+// 		wantErr  error
+// 	}{
+// 		{
+// 			name:   "success",
+// 			client: successClient,
+// 			arg: projects.GetWorkspaceProjectsUsersInput{
+// 				WorkspaceID: 1,
+// 				Query: projects.GetWorkspaceProjectsUsersQuery{
+// 					ProjectIds: "1", UserId: "1", WithGroupMembers: true},
+// 			},
+// 			wantJson: testFile,
+// 			wantErr:  nil,
+// 		},
+// 		{
+// 			name:   "http error",
+// 			client: errorClient,
+// 			arg: projects.GetWorkspaceProjectsUsersInput{
+// 				WorkspaceID: 1,
+// 				Query: projects.GetWorkspaceProjectsUsersQuery{
+// 					ProjectIds: "1", UserId: "1", WithGroupMembers: true},
+// 			},
+// 			wantJson: errorWant,
+// 			wantErr:  projects.ErrorStatusNotOK,
+// 		},
+// 	}
+
+// 	for _, tt := range test {
+// 		t.Run(tt.name, func(t *testing.T) {
+// 			got, err := tt.client.GetWorkspaceProjectsUsers(tt.arg)
+// 			if err != tt.wantErr {
+// 				t.Errorf("want %v, got %v", tt.wantErr, err)
+// 			}
+// 			gotJson, err := json.MarshalIndent(got, "", "  ")
+// 			if err != nil {
+// 				t.Fatal(err)
+// 			}
+// 			if !bytes.Equal(gotJson, tt.wantJson) {
+// 				t.Errorf("diff: %v", cmp.Diff(gotJson, tt.wantJson))
+// 			}
+// 		})
+// 	}
+// }
