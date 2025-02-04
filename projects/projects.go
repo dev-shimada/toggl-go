@@ -81,6 +81,7 @@ func (c Client) GetWorkspaceProjectsUsers(input GetWorkspaceProjectsUsersInput) 
 	return out, nil
 }
 
+// omitemptyを設定する項目を調査する
 type PostAddAnUserIntoWorkspaceProjectsUsersBody struct {
 	LaborCost           int    `json:"labor_cost"`             //	Labor cost for this project user
 	LaborCostChangeMode string `json:"labor_cost_change_mode"` //	Labor cost change mode for this project user. Can be "start-today", "override-current", "override-all"
@@ -91,7 +92,7 @@ type PostAddAnUserIntoWorkspaceProjectsUsersBody struct {
 	UserId              int    `json:"user_id"`                //	User ID
 }
 type PostAddAnUserIntoWorkspaceProjectsUsersInput struct {
-	WorkspaceID int
+	WorkspaceId int
 	Body        PostAddAnUserIntoWorkspaceProjectsUsersBody
 }
 type PostAddAnUserIntoWorkspaceProjectsUsersOutput = GetWorkspaceProjectsUsersOutput
