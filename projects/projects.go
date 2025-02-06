@@ -29,7 +29,7 @@ type GetWorkspaceProjectsUsersQuery struct {
 	WithGroupMembers bool
 }
 type GetWorkspaceProjectsUsersInput struct {
-	WorkspaceID int
+	WorkspaceId int
 	Query       GetWorkspaceProjectsUsersQuery
 }
 type GetWorkspaceProjectsUsersOutput struct {
@@ -55,7 +55,7 @@ func (c Client) GetWorkspaceProjectsUsers(input GetWorkspaceProjectsUsersInput) 
 	q.Add("with_group_members", fmt.Sprintf("%v", iq.WithGroupMembers))
 
 	toggl := c.Get(url.URL{RawQuery: q.Encode()})
-	toggl.URL.Path = fmt.Sprintf(getWorkspaceProjectsUsers, input.WorkspaceID)
+	toggl.URL.Path = fmt.Sprintf(getWorkspaceProjectsUsers, input.WorkspaceId)
 
 	resp, err := c.HttpClient.Do(&toggl)
 	if err != nil {
